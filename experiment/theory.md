@@ -25,7 +25,6 @@ Components used in simulation:
 
 
 
-![*Boiler_Heat_Exchanger* ](images/boiler_heat_exchanger.png)
 
 
 
