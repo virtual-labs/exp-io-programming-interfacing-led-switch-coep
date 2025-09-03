@@ -18,14 +18,14 @@ var selection = '<div class="row selectConf" >'
 	+ '<div class="col-sm-5">'
 	+ '<select  class="form-control selectConf" id="inputPinName"  style="height:auto;" >'
 	+ '<option value="0">--- Select Input Pin ---</option>'
-	+ '<option value="1" name="D2">D2</option>'
-	+ '<option value="2" name="D3">D3</option>'
-	+ '<option value="3" name="D4">D4</option>'
-	+ '<option value="4" name="D5">D5</option>'
-	+ '<option value="5" name="D6">D6</option>'
-	+ '<option value="6" name="D7">D7</option>'
-	+ '<option value="7" name="D8">D8</option>'
-	+ '<option value="8" name="D9">D9</option>'
+//	+ '<option value="1" name="PD1">PD1</option>'
+	+ '<option value="2" name="PD2">PD2</option>'
+	+ '<option value="3" name="PD3">PD3</option>'
+	+ '<option value="4" name="PD4">PD4</option>'
+	+ '<option value="5" name="PD5">PD5</option>'
+	+ '<option value="6" name="PD6">PD6</option>'
+	+ '<option value="7" name="PD7">PD7</option>'
+	
 
 	+ '</select>'
 	+ '</div>'
@@ -42,14 +42,13 @@ var selection = '<div class="row selectConf" >'
 	+ '<div class="col-sm-5">'
 	+ '<select  class="form-control selectConf" id="outputPinName"  style="height:auto;" disabled>'
 	+ '<option value="0">--- Select Output Pin ---</option>'
-	+ '<option value="1" name="D9">D9</option>'
-	+ '<option value="2" name="D10">D10</option>'
-	+ '<option value="3" name="D11">D11</option>'
-	+ '<option value="4" name="D13">D13</option>'
-	+ '<option value="5" name="D3">D3</option>'
-	+ '<option value="6" name="D4">D4</option>'
-	+ '<option value="7" name="D5">D5</option>'
-	+ '<option value="8" name="D6">D6</option>'
+//	+ '<option value="1" name="PD1">PD1</option>'
+	+ '<option value="2" name="PD2">PD2</option>'
+	+ '<option value="3" name="PD3">PD3</option>'
+	+ '<option value="4" name="PD4">PD4</option>'
+	+ '<option value="5" name="PD5">PD5</option>'
+	+ '<option value="6" name="PD6">PD6</option>'
+	+ '<option value="7" name="PD7">PD7</option>'
 	+ '</select>'
 	+ '</div>'
 	+ '<div class="col-sm-1">'
@@ -83,7 +82,7 @@ var selection = '<div class="row selectConf" >'
 	+ '<select  class="form-control selectConf" id="ledtype"  style="height:auto;" disabled>'
 	+ '<option value="0">--- Select LED Configuration ---</option>'
 	+ '<option value="1" >Current Sourcing</option>'
-//	+ '<option value="2" >Current Sinking</option>'
+	+ '<option value="2" >Current Sinking</option>'
 	+ '</select>'
 	+ '</div>'
 	+ '<div class="col-sm-1">'
@@ -186,15 +185,17 @@ $("#outputPinName").change(function(){
 		if(selectedOutput == 0){
 			toastr.warning("Select Output Pin.");
 		}else{
-			if(selectedOutput == 5 && selectedValue == 2){
+			 if (selectedOutput == 2 && selectedValue == 2){
 				toastr.warning("Input and output pin can not be same ");
-			}else if (selectedOutput == 1 && selectedValue == 8){
+			 }else if (selectedOutput == 3 && selectedValue == 3){
 				toastr.warning("Input and output pin can not be same ");
-			 }else if (selectedOutput == 6 && selectedValue == 3){
+			 }else if (selectedOutput == 4 && selectedValue == 4){
 				toastr.warning("Input and output pin can not be same ");
-			 }else if (selectedOutput == 7 && selectedValue == 4){
+			 }else if (selectedOutput == 5 && selectedValue == 5){
 				toastr.warning("Input and output pin can not be same ");
-			 }else if (selectedOutput == 8 && selectedValue == 5){
+			 }else if (selectedOutput == 6 && selectedValue == 6){
+				toastr.warning("Input and output pin can not be same ");
+			 }else if (selectedOutput == 7 && selectedValue == 7){
 				toastr.warning("Input and output pin can not be same ");
 			 }
 			 else{
@@ -206,7 +207,7 @@ $("#outputPinName").change(function(){
 		
 		
 	});
-
+var dCycleVal, code , code1 ;
 $("#switchConfig").change(function(){
 		$("body").css("padding","0px 0px 0px 0px");	
 		dCycleVal = $("#switchConfig").val();
@@ -215,8 +216,17 @@ $("#switchConfig").change(function(){
 		}else{
 		   $("#ledtype").prop("disabled",false);		  		  			  
  		  $("#switchConfig").prop("disabled",true);
+ 		  if(dCycleVal == 1){
+			code = "HIGH";
+			code1 = "LOW";
+		}else{
+			code = "LOW";
+			code1 = "HIGH";
+		}
 		}	
 	});
+	
+	
 
 $("#ledtype").change(function(){
 	$("body").css("padding","0px 0px 0px 0px");	
@@ -231,7 +241,9 @@ $("#ledtype").change(function(){
 		  $("#ledtype").prop("disabled",true);			  	 
 		}
 		
-})
+});
+
+
 
 	var flag = false;
 
@@ -267,9 +279,9 @@ $("#generateCode").click(function () {
   	<p>int state = digitalRead(switchPin);   &nbsp; &nbsp; &nbsp; &nbsp;     // Read the state of the switch (LOW when pressed) </p>
 
  	<p> if (state == HIGH) {
-	<p>digitalWrite(ledPin, HIGH);      &nbsp; &nbsp; &nbsp; &nbsp;    // Turn ON the LED if switch is pressed </p>
+	<p>digitalWrite(ledPin, ${code});      &nbsp; &nbsp; &nbsp; &nbsp;    // Turn ON the LED if switch is pressed </p>
  	<p> } else {
-	<p> digitalWrite(ledPin, LOW);    &nbsp; &nbsp; &nbsp; &nbsp;       // Turn OFF the LED if switch is not pressed </p>
+	<p> digitalWrite(ledPin, ${code1});    &nbsp; &nbsp; &nbsp; &nbsp;       // Turn OFF the LED if switch is not pressed </p>
  	<p> } </p>
 	<p>}</p>`
 //		+'<p></p>'
