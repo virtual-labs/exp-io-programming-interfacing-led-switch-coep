@@ -172,8 +172,8 @@
 
 
 <script>
-var setRedflag=false;		
-var statusFlag=false;	
+var setRedflag;		
+var statusFlag;	
 
 	var clk_hex = "0x00";
 	var state_p=0;
@@ -257,12 +257,19 @@ var config = {
 		
 		  if(setRedflag == true && statusFlag == true){
 			y = 5;
-			
+			if (ledTypeVAl == 1){
 			LedImg2=paper.image("images/ON_aquaLed2.png", 385, 385, 85, 85);	
+			}else{
+				LedImg2=paper.image("images/ledMirror.png", 385, 386.2, 85, 85);	
+			}
 		  }else{
 			y = 0;
-
-			LedImg2=paper.image("images/offDiode.png", 385, 385, 85, 85);	
+			if (ledTypeVAl == 1){
+				LedImg2=paper.image("images/offDiode.png", 385, 385, 85, 85);	
+				}else{
+			
+			LedImg2=paper.image("images/LedoffMirror.png", 385, 386.4, 85, 85);
+				}
 		  }
 		 
 		  
