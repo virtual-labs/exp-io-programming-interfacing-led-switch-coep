@@ -116,19 +116,19 @@ var switchCircleNAme=paper.text(x+320, y+85,"Switch").attr({"font-weight":"bold"
 var switchCircleNAme=paper.text(x+320, y+102,"Terminal").attr({"font-weight":"bold",'font-size': 14});
 var switchCircleNAme=paper.text(x+250, y+100,"(+5V)").attr({"font-weight":"bold",'font-size': 10});
 var switchCircle=paper.circle(x+308, y+118, 5).attr({'fill':'#1a0dab'});
-var switchbaseImg=paper.image("images/switchPIC2.png",x+358,y+72,101, 50);
+var switchbaseImg = paper.image("images/switchPIC2.png",x+358,y+72,101, 50);
 var ardinoPin = paper.image("images/ArdiunoPin.png",x+30,y+72,200, 250);
 var switchTopImg ;
  
 
 // condition for sourcing sinking switch connection
-if(switchConfigSelection==1){
+if(switchConfigSelection == 1){
 	console.log("high");
 	switchTopImg = paper.image("images/PICswitchTopPreview.png",x+370,y+50,78, 41);
 	
 }else{
 	console.log("hwt");
-	switchTopImg = paper.image("images/PICswitchTopPreview.png",x+370,y+50,78, 41);
+	switchTopImg = paper.image("images/PICswitchTopPreview.png",x+370,y+60,78, 41);
 //	var resister2=paper.image("images/resistorSymbol.png",x+410,y+137,120, 55).rotate(90); 
 ////	var resister2reading=paper.text(x+490,y+165,"1K").attr({'font-size':14,'stroke':'#800000'});
 //	var sConnection=paper.path("M"+(x+310)+" "+(y+118)+"l 50 -0.7 ").attr({'stroke-width':3});
@@ -217,17 +217,31 @@ checkStatus.click(function(){
 //		$("#plot").html("");
 //		$("#plot").prop("hidden",false);
 //		start();
+//		start(1,0,1);
 		start(1,0,1);
 		
-		toastr.success("Connection Established Successfully.Now Click on Switch.");	
+//		toastr.success("Connection Established Successfully.Now Click on Switch.");	
+		showSwal('Connection Established Successfully.Now Click on Switch.','success');
 		switchpress=paper.text(x+365,y+3,"Click and Hold the Switch").attr({'font-size':14});
-		arrowImg=paper.image("images/downArrowIMG.gif",x+385,y+13,50, 40);	
+		if(switchConfigSelection == 1){
+			arrowImg=paper.image("images/downArrowIMG.gif",x+385,y+13,50, 40);	
+			arrowImg1 = paper.image("images/upArrow.gif",x+385,y+100,50, 40);
+			arrowImg1.hide();
+		}else{
+			arrowImg=paper.image("images/downArrowIMG.gif",x+385,y+13,50, 40);
+			arrowImg.hide();
+			arrowImg1 = paper.image("images/upArrow.gif",x+385,y+100,50, 40);
+		}
+		
+		
 		disableAllPoints();
 		
 	}else if(coorectflg <= 3){
-		toastr.warning("Some Connections are missing.")
+//		toastr.warning("Some Connections are missing.")
+		showSwal('Some Connections are missing','error');
 	}else{
-		toastr.warning("First Establish Connection. Please Try Again.");
+		showSwal('First Establish Connection. Please Try Again','error');
+//		toastr.warning("First Establish Connection. Please Try Again.");
 	}
 }	
 });
@@ -247,15 +261,26 @@ switchTopImg.mousedown( function() {
 		switchpress.hide();
 		arrowImg.hide();
 		
+		
 			setRedflag=true;
+//			
+		if(switchConfigSelection == 1){
+			
 		switchTopImg.animate({transform: ['t',0, 10]}, 100);
+		}else{
+			arrowImg1.show();
+			setRedflag=true;
+			
+		switchTopImg.animate({transform: ['t',0, -10]}, 100);	
+		}
 		
 		$("#plot").prop("hidden",false);
 		start(interval_plot1,onTime1,offTime1);
 		//myInterval = setInterval(blink, 100); 
 		
 	}else{
-		toastr.warning("Please Check Connection Status.");
+//		toastr.warning("Please Check Connection Status.");
+		showSwal('Please Check Connection Status.','error');
 	}
  })
 
@@ -267,19 +292,28 @@ switchTopImg.mouseup( function() {
 		onTime1 = 0/1000;
 		offTime1 = 1000/1000;
 		switchpress.show();
-		arrowImg.show();		
+		arrowImg.show();
+		arrowImg1.hide();		
 
 	//var LedImg1=paper.image("images/offDiode.png", 285, 95, 85, 85);
 //		var arrowImg11=paper.rect(x+389,y+7,40, 45).attr({'stroke':'#fff','fill':'#fff'});
 	
 		setRedflag=false;
+//		
+		if(switchConfigSelection == 1){
 		switchTopImg.animate({transform: ['t',0, 0]}, 100);
+		}else{
+			setRedflag=false;
+	
+		switchTopImg.animate({transform: ['t',0, 0]}, 100);	
+		}
 		
 	$("#plot").prop("hidden",false);
 	start(interval_plot1,onTime1,offTime1);
 		//reset();		
 	}else{
-		toastr.warning("Please Check Connection Status.");
+//		toastr.warning("Please Check Connection Status.");
+		showSwal('Please Check Connection Status.','error');
 	}
 	
  })

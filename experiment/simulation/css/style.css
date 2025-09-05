@@ -82,3 +82,9 @@ background: linear-gradient(90deg, rgba(125,176,169,1) 0%, rgba(78,109,114,1) 31
     bottom: 0;
     width: 100%;
 }
+
+  .my-swal-popup {
+      width: 500px !important;   /* set width */
+      height: 500px !important;  /* set height */
+      font-size: 18px;           /* optional: bigger text */
+    }
