@@ -65,7 +65,7 @@ var selection = '<div class="row selectConf" >'
 	+ '<select  class="form-control selectConf" id="switchConfig"  style="height:auto;" disabled >'
 	+ '<option value="0">--- Select Switch Configuration ---</option>'
 	+ '<option value="1" >Press-to-High</option>'
-//	+ '<option value="2" >Press-to-Low</option>'
+	+ '<option value="2" >Press-to-Low</option>'
 	+ '</select>'
 	+ '</div>'
 	+ '<div class="col-sm-1">'
@@ -186,17 +186,24 @@ $("#outputPinName").change(function(){
 			toastr.warning("Select Output Pin.");
 		}else{
 			 if (selectedOutput == 2 && selectedValue == 2){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				
+				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 3 && selectedValue == 3){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 4 && selectedValue == 4){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 5 && selectedValue == 5){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 6 && selectedValue == 6){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 7 && selectedValue == 7){
-				toastr.warning("Input and output pin can not be same ");
+//				toastr.warning("Input and output pin can not be same ");
+				showSwal('Input and output pin can not be same','warning');
 			 }
 			 else{
 				$("#switchConfig").prop("disabled",false);			  

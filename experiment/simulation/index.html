@@ -257,18 +257,35 @@ var config = {
 		
 		  if(setRedflag == true && statusFlag == true){
 			y = 5;
+			if(dCycleVal == 1){
 			if (ledTypeVAl == 1){
 			LedImg2=paper.image("images/ON_aquaLed2.png", 385, 385, 85, 85);	
 			}else{
 				LedImg2=paper.image("images/ledMirror.png", 385, 386.2, 85, 85);	
 			}
+			}else{
+				if (ledTypeVAl == 1){
+					LedImg2=paper.image("images/offDiode.png", 385, 385, 85, 85);	
+					}else{
+				
+				LedImg2=paper.image("images/LedoffMirror.png", 385, 386.4, 85, 85);
+					}
+			}
 		  }else{
 			y = 0;
+			if(dCycleVal == 1){
 			if (ledTypeVAl == 1){
 				LedImg2=paper.image("images/offDiode.png", 385, 385, 85, 85);	
 				}else{
 			
 			LedImg2=paper.image("images/LedoffMirror.png", 385, 386.4, 85, 85);
+				}
+			}else{
+				if (ledTypeVAl == 1){
+					LedImg2=paper.image("images/ON_aquaLed2.png", 385, 385, 85, 85);	
+					}else{
+						LedImg2=paper.image("images/ledMirror.png", 385, 386.2, 85, 85);	
+					}
 				}
 		  }
 		 
@@ -338,6 +355,7 @@ var config = {
 <!-- <script type="text/javascript" src="src/questions.js"></script> -->
 <script type="text/javascript" src="src/configuration.js"></script>
 <script type="text/javascript" src="src/mimic.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="src/toastr.min.js"></script>
 
 <script>
@@ -359,4 +377,20 @@ var config = {
         'margin-bottom':'50%'
     }
 </script>
+
+<script>
+  // Simple Swal function
+  function showSwal(message, type = 'info', title = 'Status') {
+	  Swal.fire({
+	      title: title,
+	      text: message,
+	      icon: type,   // success | error | warning | info | question
+	      confirmButtonText: "OK",
+	    	  customClass: {
+	    	        popup: 'my-swal-popup'   // apply custom class
+	    	    }
+	    });
+  }
+</script>
+
 </html>
