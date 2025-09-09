@@ -214,6 +214,8 @@ $("#outputPinName").change(function(){
 		
 		
 	});
+	var comment , comment1 = '';
+	
 var dCycleVal, code , code1 ;
 $("#switchConfig").change(function(){
 		$("body").css("padding","0px 0px 0px 0px");	
@@ -226,9 +228,14 @@ $("#switchConfig").change(function(){
  		  if(dCycleVal == 1){
 			code = "HIGH";
 			code1 = "LOW";
+			comment = "LED ON when switch pressed",
+			comment1 = "LED OFF when switch released";
+			
 		}else{
 			code = "LOW";
 			code1 = "HIGH";
+			comment = "LED OFF when switch released";
+			comment1 = "LED ON when switch pressed";
 		}
 		}	
 	});
@@ -253,6 +260,7 @@ $("#ledtype").change(function(){
 
 
 	var flag = false;
+	
 
 $("#generateCode").click(function () {
 //	$("#inputPinName").prop("disabled",true);
@@ -283,12 +291,12 @@ $("#generateCode").click(function () {
 	<p>}</p>
 
 	<p>void loop() { </p>
-  	<p>int state = digitalRead(switchPin);   &nbsp; &nbsp; &nbsp; &nbsp;     // Read the state of the switch (LOW when pressed) </p>
+  	<p>int state = digitalRead(switchPin);   &nbsp; &nbsp; &nbsp; &nbsp;     // Read the state of the switch  </p>
 
  	<p> if (state == HIGH) {
-	<p>digitalWrite(ledPin, ${code});      &nbsp; &nbsp; &nbsp; &nbsp;    // Turn ON the LED if switch is pressed </p>
+	<p>digitalWrite(ledPin, ${code});      &nbsp; &nbsp; &nbsp; &nbsp;    //   ${comment} </p>
  	<p> } else {
-	<p> digitalWrite(ledPin, ${code1});    &nbsp; &nbsp; &nbsp; &nbsp;       // Turn OFF the LED if switch is not pressed </p>
+	<p> digitalWrite(ledPin, ${code1});    &nbsp; &nbsp; &nbsp; &nbsp;      // ${comment1}  </p>
  	<p> } </p>
 	<p>}</p>`
 //		+'<p></p>'
