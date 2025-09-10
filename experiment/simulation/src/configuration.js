@@ -225,23 +225,23 @@ $("#switchConfig").change(function(){
 		}else{
 		   $("#ledtype").prop("disabled",false);		  		  			  
  		  $("#switchConfig").prop("disabled",true);
- 		  if(dCycleVal == 1){
-			code = "HIGH";
-			code1 = "LOW";
-			comment = "LED ON when switch pressed",
-			comment1 = "LED OFF when switch released";
-			
-		}else{
-			code = "LOW";
-			code1 = "HIGH";
-			comment = "LED OFF when switch released";
-			comment1 = "LED ON when switch pressed";
-		}
+// 		  if(dCycleVal == 1){
+//			code = "HIGH";
+//			code1 = "LOW";
+//			comment = "LED ON when switch pressed",
+//			comment1 = "LED OFF when switch released";
+//			
+//		}else{
+//			code = "LOW";
+//			code1 = "HIGH";
+//			comment = "LED OFF when switch released";
+//			comment1 = "LED ON when switch pressed";
+//		}
 		}	
 	});
 	
 	
-
+var loopcode = '';
 $("#ledtype").change(function(){
 	$("body").css("padding","0px 0px 0px 0px");	
 		ledTypeVAl = $("#ledtype").val(); 
@@ -252,7 +252,40 @@ $("#ledtype").change(function(){
 		  $("#compileCode").prop("disabled",false);
 		  $("#executeCode").prop("disabled",false);
 		  $("#downloadCode").prop("disabled",false);	  
-		  $("#ledtype").prop("disabled",true);			  	 
+		  $("#ledtype").prop("disabled",true);	
+		  
+		 if(ledTypeVAl == 1 &&  dCycleVal == 1){
+		
+		loopcode =	`<p> if (state == HIGH) { &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;//   Switch is pressed
+		<p>digitalWrite(ledPin, HIGH );      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;   //  Drive LED pin HIGN -> sources current -> LED turns ON </p>
+ 		<p> } else {						 &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; // Switch is released
+		<p> digitalWrite(ledPin, LOW );    &nbsp; &nbsp; &nbsp; &nbsp;   // Drive LED pin LOW -> no current flows -> LED turns OFF </p>
+ 		<p> } </p>
+		}`
+		}else if (ledTypeVAl == 2 &&  dCycleVal == 1) {
+		loopcode =	`<p> if (state == HIGH) { &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; //   Switch is pressed
+		<p>digitalWrite(ledPin, LOW );      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;   //  Drive LED pin LOW -> sink current -> LED turns ON </p>
+ 		<p> } else {						 &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;// Switch is released
+		<p> digitalWrite(ledPin, HIGN );    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  // Drive LED pin HIGH -> no current sink -> LED turns OFF </p>
+ 		<p> } </p>
+		}`	
+			
+		}else if (ledTypeVAl == 1 &&  dCycleVal == 2) {
+		loopcode =	`<p> if (state == LOW) { &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;//   Switch is pressed
+		<p>digitalWrite(ledPin, HIGN  );      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;   //  Drive LED pin HIGN -> sources current -> LED turns ON </p>
+ 		<p> } else {						 &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; // Switch is released
+		<p> digitalWrite(ledPin, LOW);    &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;&nbsp; // Drive LED pin LOW -> no current source -> LED turns OFF </p>
+ 		<p> } </p>
+		}`	
+			
+		}else if (ledTypeVAl == 2 &&  dCycleVal == 2) {
+		loopcode =	`<p> if (state == LOW) { &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;//   Switch is pressed
+		<p>digitalWrite(ledPin, LOW );      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;   //  Drive LED pin LOW -> sink current -> LED turns ON </p>
+ 		<p> } else {						 &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;// Switch is released
+		<p> digitalWrite(ledPin, HIGN );    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  // Drive LED pin HIGH -> no current flows -> LED turns OFF </p>
+ 		<p> } </p>
+		}`
+		}	  	 
 		}
 		
 });
@@ -260,6 +293,10 @@ $("#ledtype").change(function(){
 
 
 	var flag = false;
+	
+	
+	
+
 	
 
 $("#generateCode").click(function () {
@@ -282,22 +319,18 @@ $("#generateCode").click(function () {
 
 	var a = `<p>`+datetime+`</p><br>	
     
-    <p> const int switchPin = ${inputPinVal};    &nbsp; &nbsp;&nbsp;&nbsp; // Pin connected to the push button switch </p>
-	<p>const int ledPin = ${outputPinVal};   &nbsp;&nbsp;&nbsp; &nbsp;         // Pin connected to the LED (built-in LED on most Arduino boards) </p>
+    <p> const int switchPin = ${inputPinVal};    &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;// Pin connected to the push button switch </p>
+	<p>const int ledPin = ${outputPinVal};   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;        // Pin connected to the LED  </p>
 
 	<p>void setup() { </p>
-	<p>pinMode(switchPin, INPUT_PULLUP);  &nbsp; &nbsp; &nbsp; &nbsp;     // Set the switch pin as input with internal pull-up resistor </p>
-	<p>pinMode(ledPin, OUTPUT);         &nbsp; &nbsp; &nbsp; &nbsp;       // Set the LED pin as output </p>
+	<p>pinMode(switchPin, INPUT_PULLUP);  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;    // Set the switch pin as input </p>
+	<p>pinMode(ledPin, OUTPUT);         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp;   // Set the LED pin as output </p>
 	<p>}</p>
 
 	<p>void loop() { </p>
-  	<p>int state = digitalRead(switchPin);   &nbsp; &nbsp; &nbsp; &nbsp;     // Read the state of the switch  </p>
-
- 	<p> if (state == HIGH) {
-	<p>digitalWrite(ledPin, ${code});      &nbsp; &nbsp; &nbsp; &nbsp;    //   ${comment} </p>
- 	<p> } else {
-	<p> digitalWrite(ledPin, ${code1});    &nbsp; &nbsp; &nbsp; &nbsp;      // ${comment1}  </p>
- 	<p> } </p>
+  	<p>int state = digitalRead(switchPin);   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;    // Read the switch state  </p>
+	${loopcode}
+ 	
 	<p>}</p>`
 //		+'<p></p>'
 
