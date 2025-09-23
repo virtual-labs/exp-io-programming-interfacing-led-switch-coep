@@ -1,42 +1,27 @@
 ## Procedure
 
-#### Piping Diagram Configuration:
-- Configure all parameters for the piping diagram. In which you need to identify vessels and equipment to run the plant
-- Click on the "Verify Components" button
-- If all configuration parameters are correct, the "Next Level" button will be visible.
-- Click on the "Next Level" button to proceed
+#### Configuration
+- Select Input Pin For Switch
+- Select Output Pin For LED
+- Select Switch Configuration
+- Select LED Configuration
+- Click on "GENERATE CODE" button to generate code
+- Click on "COMPILE" button to compile code
+- Click on "EXECUTE" button to execute code and goto mimic
+- If you want to download code click on "DOWNLOAD" button
+- The MIMIC will open on left side of screen
 
-#### Instrument Diagram Configuration:
-- Follow the same steps as above to configure the instrument diagram. In this you will have identify the instruments required to run the plant
-- Click on the "Verify Instruments" button
-- If all configuration parameters are correct, the "Next Level" button will be visible
-- Click on the "Next Level" button to continue
+#### Simulation 
+- Connect the Output Pin to the Anode 
+- Click on the cathode terminal (red circle) and then click on the resistor terminal (red circle) to connect the cathode with the resistor or vice versa
+- Click on the selected input pin terminal (blue circle) and then click on the switch terminal (blue circle) to connect the input pin with the switch terminal or vice versa
+- Click on the "Check Connection" button
+- If connection is wrong, click on "Reset Connection" button and follow steps 1, 2, 3, and 4 again 
+- If connection is successful, click on Switch available on the screen with black color and hold the switch for a few seconds
+- While holding the switch, Output LED is on. Observe the square wave graph to see how the output changes until you complete the observation
+- Click on "NEXT LEVEL" button go to next stage
 
-#### Sequence of Activities:
-- Read the “Prior Knowledge Assessment” statements carefully
-- Enter the appropriate sequence number in the provided text box. The system will not allow you to write the duplicate numbers. Hence be careful
-- Click on the "Submit" button
-- You have three attempts to verify whether the sequence is correct or otherwise
-- Try for three times and then proceed to the Simulation section
-
-#### Simulation Execution:
-- Click on the "Start" button to begin the simulation
-- The first time setting runs for 5 minutes by default
-- For other test cycles, you can choose different time durations such as 2 min, 3 min, 4 min, etc
-- The simulation will display the status and phases during execution
-- You can start the next test cycle or view the datasheet and trends according to the test cycles
-- The datasheet for each test cycle can be downloaded in PDF format by clicking on the "Download " button
-- Multiple readings are available in line  format
-- Use the checkbox to view different series or hide specific series as needed
-- Click on the "Download Graph"button to save the graph 
-
-#### Data Monitoring & Graphs:
-- View the Datasheet and Trends according
-- The trend functionality allows you to see multiple readings in a line or trend format
-- Use the checkbox to switch between different series or hide/show specific data
- Download the graph using "Download Graph" button
- 
-#### Result Assessment:
-- Click on the "Result" button to view your performance assessment.
-
+#### Questions
+- Read all the questions carefully and submit the answer
+- After submission, "Result" page will displayed
 
