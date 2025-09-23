@@ -1,4 +1,6 @@
 
+resultJson = {};
+timerMasterJson = {};
 //function mainPage1(){
 	$("#main-div-conf").html('');	
      $("#canvas-div").html('');	
@@ -154,6 +156,7 @@ var outputPinVal;
 var ledTypeVAl;
 var selectedValue;
 var selectedOutput;
+var wrongConfig = 0 ;
 $("#inputPinName").change(function(){
 		var selectEl = document.getElementById("inputPinName");
 		var selectedOption = selectEl.options[selectEl.selectedIndex];
@@ -179,6 +182,7 @@ $("#outputPinName").change(function(){
 
 // get value and name
 		 selectedOutput = selectedOption.value; // e.g. "D2"
+		 console.log(selectedOutput);
 		var selectedName1 = selectedOption.getAttribute("name");
 		$("body").css("padding","0px 0px 0px 0px");	
 		outputPinVal = selectedName1;
@@ -187,21 +191,26 @@ $("#outputPinName").change(function(){
 		}else{
 			 if (selectedOutput == 2 && selectedValue == 2){
 //				toastr.warning("Input and output pin can not be same ");
-				
+				wrongConfig++;
 				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 3 && selectedValue == 3){
 //				toastr.warning("Input and output pin can not be same ");
+				wrongConfig++;
 				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 4 && selectedValue == 4){
 //				toastr.warning("Input and output pin can not be same ");
+				wrongConfig++;
 				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 5 && selectedValue == 5){
+				 wrongConfig++;
 //				toastr.warning("Input and output pin can not be same ");
 				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 6 && selectedValue == 6){
+				 wrongConfig++;
 //				toastr.warning("Input and output pin can not be same ");
 				showSwal('Input and output pin can not be same','warning');
 			 }else if (selectedOutput == 7 && selectedValue == 7){
+				 wrongConfig++;
 //				toastr.warning("Input and output pin can not be same ");
 				showSwal('Input and output pin can not be same','warning');
 			 }
@@ -357,6 +366,7 @@ $("#compileCode").click(function(){
  
 
 $("#executeCode").click(function () {
+	wrongConfig++;
 	if(compileflag==true){
 		$("#modelMsg").html("<b class='boldTextGreen'>Code Executed Successfully.</b>");
 			iPinSelect = $("#inputPinName").val();
@@ -366,6 +376,8 @@ $("#executeCode").click(function () {
 			$("#canvas-div").html('');
 			$("#canvas-div1").html('');
 			$("#plot").prop("hidden",false);
+			resultJson.configuration = wrongConfig;
+			console.log(resultJson);
 			mimic(iPinSelect,oPinSelect,switchConfigSelect,LedConSelect);
     
 	}else{
