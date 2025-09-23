@@ -34,6 +34,10 @@ function mimic(iPinSelect,oPinSelect,switchConfigSelect,LedConSelect){
     $("#centerText2").html('CONFIGURATION');
     $('#canvas-div').removeAttr('width');
 	$('#canvas-div').removeAttr('height');
+	$("#generateCode,#compileCode,#executeCode").prop('disabled',true);
+	timerMasterJson.configuration = $("#counter").text();
+	seconds = 0;
+	 updateCounter();
 	var w =650;
 	var h = 550;
 	
@@ -72,7 +76,9 @@ var onTime1=500/1000;
 var onTime11=onTime1+offTime1;
 
 var checkStatus=paper.image("images/checkBtn1.png",x-90,y-150,200, 50);
-var resetimg=paper.image("images/resetconnectioPreview.png",x+240,y-150,180, 50);
+var resetimg=paper.image("images/resetconnectioPreview.png",x+200,y-150,180, 50);
+var next = paper.image("images/next.png",x+400,y-150,100, 40);
+next.hide();
 //var runimg=paper.image("images/runPreview.png",x+120,y-150,100, 50);
 //var microcontroller=paper.image("images/chipImg.png",x-40,y+40,400, 300).rotate(1);
 
@@ -204,13 +210,17 @@ function blink() {
 var switchpress='';
 var arrowImg;
 var arrowImg1;
-checkStatus.click(function(){
-	
-//console.log("anodeflg"+anodeflg+", pinval="+pinVal+ ",pinname =" + pinName+", RcircleFlag="+RcircleFlag+", cathodFlag="+cathodFlag +", IpinVal="+IpinVal+", inputpinName="+inputpinName);
 
- if (wrongflg >= 1){
-		toastr.warning("Wrong Connection. Please Try Again.");
-}else{
+
+
+
+
+//ardinoPin = paper.image("images/ArdiunoPin.png",x+50,y+72,160, 250);
+var  wrongAttempts = 0;
+
+checkStatus.click(function(){
+	wrongAttempts++;
+
 		
 	if(coorectflg == 3 ){
 		statusFlag=true;				
@@ -236,20 +246,28 @@ checkStatus.click(function(){
 		
 		disableAllPoints();
 		
-	}else if(coorectflg <= 3){
+	}else if(coorectflg <= 3 || wrongflg >= 1){
 //		toastr.warning("Some Connections are missing.")
-		showSwal('Some Connections are missing','error');
+    if(wrongAttempts <= 3){
+		showSwal('Some Connections are missing or wrong','error');
+	}else{
+			Swal.fire({
+					title: 'Appropriate connections',
+					html: `<div>
+                <img src='images/switchCorrect.png' class='img-fluid' 
+                     style='border-style: double; border-color: black; display: block; margin: 10px auto; width: 100%; max-width: 1200px;'>
+           </div>`,
+					width: '80%', // Increases the width of the modal
+					confirmButtonText: 'Try Again'
+				});
+	}
+		
 	}else{
 		showSwal('First Establish Connection. Please Try Again','error');
 //		toastr.warning("First Establish Connection. Please Try Again.");
 	}
-}	
+	
 });
-
-
-
-
-//ardinoPin = paper.image("images/ArdiunoPin.png",x+50,y+72,160, 250);
 
 
 var myInterval;
@@ -260,16 +278,20 @@ switchTopImg.mousedown( function() {
 		offTime1 = 0/1000;
 		switchpress.hide();
 		arrowImg.hide();
-		
+		next.show();
 		
 			setRedflag=true;
 //			
 		if(switchConfigSelection == 1){
+			inputPt.show();
+			outputPt.show();
 			
 		switchTopImg.animate({transform: ['t',0, 10]}, 100);
 		}else{
 			arrowImg1.show();
 			setRedflag=true;
+			inputPt.hide();
+			outputPt.hide();
 			
 		switchTopImg.animate({transform: ['t',0, -10]}, 100);	
 		}
@@ -301,10 +323,13 @@ switchTopImg.mouseup( function() {
 		setRedflag=false;
 //		
 		if(switchConfigSelection == 1){
+			inputPt.hide();
+			outputPt.hide();
 		switchTopImg.animate({transform: ['t',0, 0]}, 100);
 		}else{
 			setRedflag=false;
-	
+			inputPt.show();
+			outputPt.show();
 		switchTopImg.animate({transform: ['t',0, 0]}, 100);	
 		}
 		
@@ -347,13 +372,16 @@ var	wrongflg = 0;
   var firstPoint = null;
   var connections = [];
   var  correctSetB =[];
-  var correctSetA = [];	 
+  var correctSetA = [];	
+  var inputPt , outputPt ; 
 //  // ✅ Allowed correct connections
 //  var correctConnections = [
 //    ["P1", "P2"] , // only P1-P2 is correct
 //    ["P3", "P4"],
 //    ["P5", "P6"]
 //  ];
+
+
   
     // ✅ Two different arrays of correct connections
     
@@ -362,37 +390,44 @@ var	wrongflg = 0;
    		 ["P1", "P6"], // d9 to ouput to p1 switch
    		 ["P3", "P4"] //led to register
   		];
+  		
    }else if (selectedOutput == 2){
 	   correctSetA = [
 		["P1", "P7"], // d10 to ouput 
 	    ["P3", "P4"] //led to register
   		];
+  		outputPt =	paper.circle(x+232, y+148, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    } else if (selectedOutput == 3){
 	   correctSetA = [
 		["P1", "P8"], // d11 to ouput 
 	    ["P3", "P4"] //led to register
   		];
+  		outputPt = paper.circle(x+232, y+163, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    } 
    else if (selectedOutput == 4){
 	   correctSetA = [
 		["P1", "P9"], // d13 to ouput 
 	    ["P3", "P4"] //led to register
  		 ]	;
+ 		outputPt = paper.circle(x+232, y+177, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    } else if (selectedOutput == 5){
 	   correctSetA = [
 		["P1", "P10"], // d3 to ouput 
 	    ["P3", "P4"] //led to register
  		 ]	;
+ 		outputPt = paper.circle(x+232, y+195, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    }else if (selectedOutput == 6){
 	   correctSetA = [
-		["P1", "p11"], // d4 to ouput 
+		["P1", "P11"], // d4 to ouput 
 	    ["P3", "P4"] //led to register
  		 ]	;
+ 		outputPt = paper.circle(x+232, y+214, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    }else if (selectedOutput == 7){
 	   correctSetA = [
 		["P1", "P12"], // d5 to ouput 
 	    ["P3", "P4"] //led to register
  		 ]	;
+ 		outputPt = paper.circle(x+232, y+232, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
    }
   
 	
@@ -404,30 +439,37 @@ var	wrongflg = 0;
 		  
 		  correctSetB = [ ["P5", "P7"] // d3 to switch p5
 		  ];
+		 inputPt= paper.circle(x+232, y+148, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }else if(selectedValue == 3){
 		 
 		  correctSetB = [ ["P5", "P8"] // d4 to switch p5
 		  ];
+		 inputPt = paper.circle(x+232, y+163, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }else if(selectedValue == 4){
 	
 		  correctSetB = [ ["P5", "P9"] // d5 to switch p5
 		  ];
+		inputPt =  paper.circle(x+232, y+177, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }else if(selectedValue == 5){
 		 
 		  correctSetB = [ ["P5", "P10"] // d6 to switch p5
 		  ];
+		inputPt =  paper.circle(x+232, y+195, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }else if(selectedValue == 6){
 		 
 		  correctSetB = [ ["P5", "P11"] // d7 to switch p5
 		  ];
+		inputPt=  paper.circle(x+232, y+214, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }else if(selectedValue == 7){
 		 
 		  correctSetB = [ ["P5", "P12"] // d8 to switch p5
 		  ];
+		 inputPt = paper.circle(x+232, y+232, 4.5).attr({fill: "red", stroke: "black", "stroke-width": 2})
 	  }
 
 
-
+inputPt.hide();
+outputPt.hide();
   function showConnections() {
 //    document.getElementById("output").textContent = "Connections:\n" + 
 //      connections.map(c => c.id1 + " ↔ " + c.id2 + (c.correct ? " ✅" : " ❌")).join("\n");
@@ -556,6 +598,15 @@ var	wrongflg = 0;
     p.attr({cursor: "default"}); // optional: reset cursor
   });
 }
+
+
+	next.click(function(){
+		resultJson.mimic = wrongAttempts;
+			 $('#plot').prop('hidden',true);
+			  showQuestions();
+		
+	})
+
 
 
 
