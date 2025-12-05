@@ -26,3 +26,4 @@
 - After submission, verify the answers 
 - Click on result button, "Result" page will displayed
 
+ ![*Sensor* ](images/Experiment1.png) <br>
