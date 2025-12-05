@@ -24,7 +24,7 @@ Current Sinking is when the Arduino pin pulls current IN to complete the circuit
 ![*Sensor* ](images/sinking.png) <br>
 
 
-####Components used in simulation: 
+#### Components used in simulation: 
 - Microcontroller: Arduino Uno 
 - Red colour LED 
 -  Resistor: 220 Ohms 
