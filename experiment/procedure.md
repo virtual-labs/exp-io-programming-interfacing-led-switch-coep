@@ -11,14 +11,25 @@
 - If you want to download code click on "DOWNLOAD" button
 - The MIMIC will open on left side of screen
 
+![*Sensor* ](images/exp1_1.png) <br>
+
 #### Simulation 
 - Connect the Output Pin to the Anode 
 - Click on the cathode terminal (red circle) and then click on the resistor terminal (red circle) to connect the cathode with the resistor or vice versa
 - Click on the selected input pin terminal (blue circle) and then click on the switch terminal (blue circle) to connect the input pin with the switch terminal or vice versa
-- Click on the "Check Connection" button
-- If connection is wrong, click on "Reset Connection" button and follow steps 1, 2, 3, and 4 again 
-- If connection is successful, click on Switch available on the screen with black color and hold the switch for a few seconds
-- While holding the switch, Output LED is on. Observe the square wave graph to see how the output changes until you complete the observation
+- Click on the "Check Connection" button<br>
+![*Sensor* ](images/exp1_2.png) <br>
+
+
+- If connection is wrong, click on "Reset Connection" button and follow steps 1, 2, 3, and 4 again or click on red lines to delete the connection<br>
+![*Sensor* ](images/exp1_3.png) <br>
+
+- If connection is successful, click on Switch available on the screen with black color and hold the switch for a few seconds<br>
+![*Sensor* ](images/exp1_4.png) <br>
+
+- While holding the switch, Output LED is on. Observe the square wave graph to see how the output changes until you complete the observation<br>
+![*Sensor* ](images/exp1_5.png) <br>
+
 - Click on "NEXT LEVEL" button go to next stage
 
 #### Questions
@@ -26,4 +37,4 @@
 - After submission, verify the answers 
 - Click on result button, "Result" page will displayed
 
- ![*Sensor* ](images/Experiment1.png) <br>
+ 
