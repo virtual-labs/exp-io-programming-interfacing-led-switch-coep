@@ -15,8 +15,8 @@
 
 #### Simulation 
 - Connect the Output Pin to the Anode 
-- Click on the cathode terminal (red circle) and then click on the resistor terminal (red circle) to connect the cathode with the resistor or vice versa
-- Click on the selected input pin terminal (blue circle) and then click on the switch terminal (blue circle) to connect the input pin with the switch terminal or vice versa
+- Click on the cathode terminal  and then click on the resistor terminal to connect the cathode with the resistor or vice versa
+- Click on the selected input pin terminal and then click on the switch terminal to connect the input pin with the switch terminal or vice versa
 - Click on the "Check Connection" button<br>
 ![*Sensor* ](images/exp1_2.png) <br>
 
