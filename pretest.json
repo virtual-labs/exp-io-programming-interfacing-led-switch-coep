@@ -1,0 +1,73 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the primary purpose of the pinMode() function in Arduino programming?",
+      "answers": {
+         "a": "To set a pin as an analog input",
+        "b": "To define the mode of a pin as input or output",
+        "c": "To start the simulation",
+        "d": "To turn the LED on"
+      },
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which Arduino function is used to turn an LED on or off?",
+      "answers": {
+        "a": "analogWrite()",
+        "b": "digitalRead()",
+        "c": "delay()",
+        "d": "digitalWrite()"
+      },
+     
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What does the delay(1000); function do in an Arduino sketch?",
+      "answers": {
+        "a": "Stops the simulation",
+        "b": "Turns off the Arduino board ",
+        "c": "Waits for 1 second before continuing ",
+        "d": "Initializes the LED"
+      },
+     
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+	{
+      "question": "On most Arduino Uno boards, which digital pin is connected to the onboard LED?",
+      "answers": {
+        "a": "2",
+        "b": "7",
+        "c": "13",
+        "d": "A0"
+      },
+     
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+	
+	{
+      "question": "Which of the following will make the LED blink faster in the Arduino code?",
+      "answers": {
+        "a": "Increasing the delay value",
+        "b": "Decreasing the delay value",
+        "c": "Adding another LED",
+        "d": "Changing the pin number"
+      },
+     
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+	
+	
+  
+  
+  
+  
+  
+  ]
+}
